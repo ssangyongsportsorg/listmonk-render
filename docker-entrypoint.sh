@@ -22,16 +22,16 @@ EOF
 
 # Define wrapper function
 listmonk_wrapper() {
-  ./listmonk --yes --config /etc/listmonk/config.toml $@
+  ./listmonk --yes --config /etc/listmonk/config.toml \$@
 }
 
 # Wait for database to be ready
-wait-for-it "${DB_HOST}:${DB_PORT}" -t 60
+wait-for-it "\${DB_HOST}:\${DB_PORT}" -t 60
 
 # Initialize and upgrade database if needed
 listmonk_wrapper --install --idempotent
 
-if [ "$UPGRADE_LISTMONK_DATABASE" = "true" ]; then
+if [ "\$UPGRADE_LISTMONK_DATABASE" = "true" ]; then
   listmonk_wrapper --upgrade
 fi
 
